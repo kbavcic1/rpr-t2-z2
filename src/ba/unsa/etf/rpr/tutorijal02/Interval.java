@@ -12,11 +12,11 @@ public class Interval {
         return krajnjaTacka;
     }
 
-    public boolean isDaLiPocetnaTackaPripada() {
+    public boolean getDaLiPocetnaTackaPripada() {
         return daLiPocetnaTackaPripada;
     }
 
-    public boolean isDaLiKrajnjaTackaPripada() {
+    public boolean getDaLiKrajnjaTackaPripada() {
         return daLiKrajnjaTackaPripada;
     }
 
@@ -49,11 +49,26 @@ public class Interval {
 
 
     public Interval intersect(Interval interval) {
-        if (pocetnaTacka < interval.pocetnaTacka);
+        if (pocetnaTacka < interval.getPocetnaTacka() && krajnjaTacka < interval.getKrajnjaTacka())
+            return new Interval(interval.getPocetnaTacka(),krajnjaTacka,interval.getDaLiPocetnaTackaPripada(), daLiKrajnjaTackaPripada);
+        else if (pocetnaTacka > interval.getPocetnaTacka() && krajnjaTacka > interval.getKrajnjaTacka())
+            return new Interval(pocetnaTacka,interval.getKrajnjaTacka(),daLiPocetnaTackaPripada, interval.getDaLiKrajnjaTackaPripada());
+        else if (pocetnaTacka > interval.getPocetnaTacka() && krajnjaTacka < interval.getKrajnjaTacka())
+            return new Interval(pocetnaTacka,krajnjaTacka,daLiPocetnaTackaPripada, daLiKrajnjaTackaPripada);
+        else if (pocetnaTacka < interval.getPocetnaTacka() && krajnjaTacka > interval.getKrajnjaTacka())
+            return new Interval(interval.getPocetnaTacka(), interval.getKrajnjaTacka(),interval.getDaLiPocetnaTackaPripada(), interval.getDaLiKrajnjaTackaPripada());
         return null;
     }
 
-    public static Interval intersect(Interval i, Interval i2) {
+    public static Interval intersect(Interval i, Interval interval) {
+        if (i.getPocetnaTacka() < interval.getPocetnaTacka() && i.getKrajnjaTacka() < interval.getKrajnjaTacka())
+            return new Interval(interval.getPocetnaTacka(), i.getKrajnjaTacka(),interval.getDaLiPocetnaTackaPripada(), i.getDaLiKrajnjaTackaPripada());
+        else if (i.getPocetnaTacka() > interval.getPocetnaTacka() && i.getKrajnjaTacka() > interval.getKrajnjaTacka())
+            return new Interval(i.getPocetnaTacka(),interval.getKrajnjaTacka(),i.getDaLiPocetnaTackaPripada(), interval.getDaLiKrajnjaTackaPripada());
+        else if (i.getPocetnaTacka() > interval.getPocetnaTacka() && i.getKrajnjaTacka() < interval.getKrajnjaTacka())
+            return new Interval(i.getPocetnaTacka(),i.getKrajnjaTacka(),i.getDaLiPocetnaTackaPripada(), i.getDaLiKrajnjaTackaPripada());
+        else if (i.getPocetnaTacka() < interval.getPocetnaTacka() && i.getKrajnjaTacka() > interval.getKrajnjaTacka())
+            return new Interval(interval.getPocetnaTacka(), interval.getKrajnjaTacka(),interval.getDaLiPocetnaTackaPripada(), interval.getDaLiKrajnjaTackaPripada());
         return null;
     }
 
